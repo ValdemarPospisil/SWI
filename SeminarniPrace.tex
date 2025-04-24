@@ -1,0 +1,110 @@
+\documentclass[12pt, a4paper]{article}
+
+% --- ZÁKLADNÍ BALÍČKY ---
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[czech]{babel}
+\usepackage{lmodern}
+\usepackage{amsmath, amssymb}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{hyperref}
+\usepackage{caption}
+\usepackage{csquotes}
+\usepackage{geometry}
+\usepackage[numbers]{natbib} % pro citace podle ISO 690 stylu
+\usepackage{listings} % pro kód
+\usepackage{xcolor} % barvy pro listings
+\usepackage{enumitem} % lepší seznamy
+\pagecolor{white}
+\color{black}
+
+% --- NASTAVENÍ STRÁNKY ---
+\geometry{
+    a4paper,
+    top=2.5cm,
+    bottom=2.5cm,
+    left=3cm,
+    right=2.5cm
+}
+
+% --- NASTAVENÍ ZDROJOVÉHO KÓDU ---
+\definecolor{codegray}{gray}{0.9}
+\lstset{
+    backgroundcolor=\color{codegray},
+    basicstyle=\ttfamily\small,
+    breaklines=true,
+    captionpos=b,
+    tabsize=4
+}
+
+% --- INFORMACE O DOKUMENTU ---
+\title{Code review pomocí velkého jazykového modelu}
+\author{Valdemar}
+\date{Duben 2025}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+Tato práce se zabývá využitím velkých jazykových modelů (LLM) při procesu kontroly zdrojového kódu, tzv. \textit{code review}, ve vývoji softwaru. Cílem je prozkoumat možnosti, přínosy a limity těchto modelů v reálném vývojářském workflow a navrhnout experimenty, které ověří jejich efektivitu ve srovnání s lidskými recenzenty.
+\end{abstract}
+
+\section{Úvod do tématu}
+
+V současném softwarovém vývoji představuje \textit{code review} nedílnou součást procesu zajišťující kvalitu zdrojového kódu. Slouží nejen k odhalování chyb, ale i k předávání znalostí mezi členy týmu, udržování konzistentního stylu kódu a zvyšování celkové udržovatelnosti systému. Tato praxe je klíčová zejména ve větších týmech a projektech s dlouhodobým vývojem.
+
+V posledních letech se do vývojářského procesu stále více zapojují nástroje založené na umělé inteligenci. Jedním z nejvýraznějších pokroků v této oblasti jsou tzv. \textit{velké jazykové modely} (LLM – Large Language Models), jako je ChatGPT, Claude, Code Llama nebo GitHub Copilot. Tyto modely dokáží porozumět strukturovanému i nestrukturovanému textu a generovat smysluplné odpovědi, komentáře nebo návrhy na základě vstupních dat.
+
+Otázkou tedy je, do jaké míry lze tyto nástroje využít pro automatizaci nebo podporu code review. Může LLM odhalit stejné chyby jako zkušený programátor? Je jeho návrh na refaktoring použitelný v reálném prostředí? A především – může takový model plnohodnotně doplnit, nebo dokonce nahradit lidského recenzenta?
+
+Tato seminární práce si klade za cíl popsat současný stav výzkumu v této oblasti, formulovat výzkumné otázky a navrhnout experiment, který pomůže zodpovědět, jak efektivní je využití LLM při provádění code review.
+
+\newpage
+% Zde pokračuj dalšími sekcemi: Výzkumná rešerše, Otázky, Experiment...
+
+
+\section{State-of-the-art}
+
+\begin{itemize}
+  \item Github Copilot, Claude, CodeRabbit, ChatGPT
+  \item Články
+  \item Výzkum pasivity AI
+\end{itemize}
+
+\section{Výzkumné otázky}
+
+\begin{itemize}
+  \item Je LLM efektivnější než člověk při code review?
+  \item Má nekritická pasivnost vliv na kvalitu code review?
+  \item Má jazyk vliv na code review?
+  \item (Umí LLM rozpoznat a navrhnout efektivní refaktoring v porovnání s běžnými nástroji (např. SonarQube, linters)?)
+  \item (Jak dobře si LLM poradí s review kódu v méně běžných jazycích (např. Rust, Haskell, Elixir)?)
+  \item (Je výhodnější provádět code review člověkem a pak ho doplnit LLM, nebo naopak?)
+\end{itemize}
+
+\section{Návrh experimentu}
+
+\begin{itemize}
+  \item příprava prostředí(code base, code na přidání)
+  \item jak jsem použil nástroje
+  \item jak budu hodnotit výstupy od LLM
+\end{itemize}
+
+\section{Výsledky a diskuze}
+
+\begin{itemize}
+  \item výsledky review
+  \item opovězení na otázky
+  \item jaké jsou dopady na týmovou práci
+\end{itemize}
+
+\section{Závěr}
+
+\begin{itemize}
+  \item shrnutí zjištění
+  \item moje omezení (no money na chat premium, a nedělám v týmu se seniorem který by mi dal dobrý cr a tak)
+\end{itemize}
+
+\end{document}
