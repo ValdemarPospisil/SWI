@@ -1,0 +1,49 @@
+This is BibTeX, Version 0.99d (TeX Live 2023/VoidLinux)
+Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
+The top-level auxiliary file: SeminarniPrace.aux
+The style file: plainnat.bst
+Database file #1: bibliography.bib
+Warning--can't use both volume and number fields in li2022
+Warning--empty journal in sonarqube2023
+You've used 14 entries,
+            2773 wiz_defined-function locations,
+            665 strings with 7250 characters,
+and the built_in function-call counts, 6505 in all, are:
+= -- 569
+> -- 413
+< -- 13
++ -- 143
+- -- 129
+* -- 492
+:= -- 1022
+add.period$ -- 51
+call.type$ -- 14
+change.case$ -- 85
+chr.to.int$ -- 14
+cite$ -- 30
+duplicate$ -- 287
+empty$ -- 493
+format.name$ -- 145
+if$ -- 1354
+int.to.chr$ -- 1
+int.to.str$ -- 1
+missing$ -- 10
+newline$ -- 87
+num.names$ -- 56
+pop$ -- 182
+preamble$ -- 1
+purify$ -- 71
+quote$ -- 0
+skip$ -- 253
+stack$ -- 0
+substring$ -- 138
+swap$ -- 41
+text.length$ -- 4
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 154
+warning$ -- 2
+while$ -- 53
+width$ -- 0
+write$ -- 197
+(There were 2 warnings)

@@ -1,0 +1,87 @@
+\begin{thebibliography}{14}
+\providecommand{\natexlab}[1]{#1}
+\providecommand{\url}[1]{\texttt{#1}}
+\expandafter\ifx\csname urlstyle\endcsname\relax
+  \providecommand{\doi}[1]{doi: #1}\else
+  \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
+
+\bibitem[Anthropic(2023)]{anthropic2023}
+Anthropic.
+\newblock Claude: Ai assistant by anthropic, 2023.
+\newblock URL \url{https://www.anthropic.com/claude}.
+
+\bibitem[API4AI(2023)]{api4ai2023}
+API4AI.
+\newblock Ai vs. human code review: Pros and cons compared.
+\newblock \emph{Medium}, 2023.
+\newblock URL \url{https://medium.com/@API4AI/ai-vs-human-code-review-pros-and-cons-compared-7fd04d093613}.
+
+\bibitem[Biswas and Rajan(2022)]{biswas2022}
+Sumon Biswas and Hridesh Rajan.
+\newblock Do the machine learning models on a crowd sourced platform exhibit bias? an empirical study on model fairness.
+\newblock \emph{Proceedings of the 2022 ACM Conference on Fairness, Accountability, and Transparency}, pages 581--592, 2022.
+
+\bibitem[CodeRabbit(2023)]{coderabbit2023}
+CodeRabbit.
+\newblock Coderabbit ai: Your ai-powered code review assistant, 2023.
+\newblock URL \url{https://coderabbit.ai}.
+
+\bibitem[Fan et~al.(2023)Fan, He, Yang, Liu, Yu, Wang, Guo, and Yin]{fan2023}
+Yanfang Fan, Zhuobing He, Zhou Yang, Yi~Liu, Pengyu Yu, Qinghua Wang, Hongyu Guo, and Gang Yin.
+\newblock Large language models for software engineering: A systematic literature review.
+\newblock \emph{arXiv preprint arXiv:2308.10620}, 2023.
+\newblock URL \url{https://arxiv.org/abs/2308.10620}.
+
+\bibitem[GitHub(2023)]{copilot2023}
+GitHub.
+\newblock Github copilot: Your ai pair programmer, 2023.
+\newblock URL \url{https://github.com/features/copilot}.
+
+\bibitem[Kang et~al.(2023)Kang, Zhang, and Zhou]{kang2023}
+Toufique Kang, Tao Zhang, and Hao Zhou.
+\newblock Can llms create better code reviews than humans?
+\newblock \emph{arXiv preprint arXiv:2310.16268}, 2023.
+\newblock URL \url{https://arxiv.org/abs/2310.16268}.
+
+\bibitem[Knesl(2022)]{zdrojak2022}
+Jiří Knesl.
+\newblock Jak na code review.
+\newblock \emph{Zdrojak}, 2022.
+\newblock URL \url{https://zdrojak.cz/clanky/jak-na-code-review/}.
+
+\bibitem[Li et~al.(2022)Li, Choi, Chung, Kushman, Schrittwieser, Leblond, Eccles, Keeling, Gimeno, Amor, Graepel, Hassabis, and Kohli]{li2022}
+Yujia Li, David Choi, Junyoung Chung, Nate Kushman, Julian Schrittwieser, Rémi Leblond, Tom Eccles, James Keeling, Felix Gimeno, Agustin~Dal Amor, Thore Graepel, Demis Hassabis, and Pushmeet Kohli.
+\newblock Competition-level code generation with alphacode.
+\newblock In \emph{Science}, volume 378, pages 1092--1097, 2022.
+\newblock \doi{10.1126/science.abq1158}.
+
+\bibitem[Nguyen et~al.(2023)Nguyen, Dyer, Nguyen, and Rajan]{nguyen2023}
+Hoan~Anh Nguyen, Robert Dyer, Tien~N. Nguyen, and Hridesh Rajan.
+\newblock Ai-assisted code review: Expectations, challenges and opportunities.
+\newblock \emph{IEEE Software}, 40\penalty0 (4):\penalty0 36--42, 2023.
+\newblock \doi{10.1109/MS.2023.3242905}.
+
+\bibitem[OpenAI(2023)]{chatgpt2023}
+OpenAI.
+\newblock Chatgpt: Optimizing language models for dialogue, 2023.
+\newblock URL \url{https://openai.com/chatgpt}.
+
+\bibitem[SonarSource(2023)]{sonarqube2023}
+SonarSource.
+\newblock Sonarqube: Code quality and code security.
+\newblock 2023.
+\newblock URL \url{https://www.sonarqube.org}.
+
+\bibitem[Taecharungroj et~al.(2023)Taecharungroj, Lertluck, Charoendechkijkul, Pradubsri, and Iam-On]{taecharungroj2023}
+Parinthorn Taecharungroj, Natnaree Lertluck, Charita Charoendechkijkul, Phakphum Pradubsri, and Natthakan Iam-On.
+\newblock Code review via large language models: Comparison to human review and usage guidelines.
+\newblock \emph{Proceedings of the IEEE/ACM 45th International Conference on Software Engineering}, pages 1--12, 2023.
+\newblock \doi{10.1109/ICSE48619.2023.00123}.
+
+\bibitem[Team(2023)]{graphite2023}
+Graphite~Dev Team.
+\newblock Ai won't replace human code review.
+\newblock \emph{Graphite Blog}, 2023.
+\newblock URL \url{https://graphite.dev/blog/ai-wont-replace-human-code-review}.
+
+\end{thebibliography}
