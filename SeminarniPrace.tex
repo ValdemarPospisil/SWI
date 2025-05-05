@@ -55,7 +55,7 @@ Tato práce se zabývá využitím velkých jazykových modelů (LLM) při proce
 
 V současném softwarovém vývoji představuje \textit{code review} nedílnou součást procesu zajišťující kvalitu zdrojového kódu. Slouží nejen k odhalování chyb, ale i k předávání znalostí mezi členy týmu, udržování konzistentního stylu kódu a zvyšování celkové udržovatelnosti systému. Tato praxe je klíčová zejména ve větších týmech a projektech s dlouhodobým vývojem.
 
-V posledních letech se do vývojářského procesu stále více zapojují nástroje založené na umělé inteligenci. Jedním z nejvýraznějších pokroků v této oblasti jsou tzv. \textit{velké jazykové modely} (LLM – Large Language Models), jako je ChatGPT, Claude, Code Llama nebo GitHub Copilot. Tyto modely dokáží porozumět strukturovanému i nestrukturovanému textu a generovat smysluplné odpovědi, komentáře nebo návrhy na základě vstupních dat.
+V posledních letech se do vývojářského procesu stále více zapojují nástroje založené na umělé inteligenci. Jedním z nejvýraznějších pokroků v této oblasti jsou tzv. \textit{velké jazykové modely} (LLM – Large Language Models), jako je ChatGPT, Claude, Gemini nebo GitHub Copilot. Tyto modely dokáží porozumět strukturovanému i nestrukturovanému textu a generovat smysluplné odpovědi, komentáře nebo návrhy na základě vstupních dat.
 
 Otázkou tedy je, do jaké míry lze tyto nástroje využít pro automatizaci nebo podporu code review. Může LLM odhalit stejné chyby jako zkušený programátor? Je jeho návrh na refaktoring použitelný v reálném prostředí? A především – může takový model plnohodnotně doplnit, nebo dokonce nahradit lidského recenzenta?
 
@@ -84,7 +84,7 @@ CodeRabbit je specializovaný nástroj pro automatizované code review s využit
 \subsubsection{Generické LLM nástroje (ChatGPT, Claude)}
 Vedle specializovaných nástrojů lze pro code review využít i generické velké jazykové modely jako ChatGPT \cite{chatgpt2023} nebo Claude \cite{anthropic2023}. Tyto modely, ačkoliv nejsou primárně navrženy pro práci s kódem, vykazují překvapivě dobré výsledky při analýze zdrojového kódu a identifikaci problémů. Jejich limitací je však omezený přístup ke kontextu celého repozitáře, což lze částečně řešit manuálním nahráváním relevantních částí kódu nebo využitím API pro integraci.
 
-Jak uvádí Graphite Dev Team \cite{graphite2023}, jednou z možností, jak využít tyto generické modely, je extrakce diff souboru z pull requestu (přidáním `.diff` na konec URL) a jeho následné vložení do chatu s modelem. Tento přístup však naráží na omezení kontextového okna a absenci přístupu k širšímu kontextu kódu.
+Jak uvádí Greg Foster \cite{graphite2023}, jednou z možností, jak využít tyto generické modely, je extrakce diff souboru z pull requestu (přidáním `.diff` na konec URL) a jeho následné vložení do chatu s modelem. Tento přístup však naráží na omezení kontextového okna a absenci přístupu k širšímu kontextu kódu.
 
 \subsection{Srovnání efektivity LLM a lidského code review}
 
@@ -160,16 +160,22 @@ Li et al. \cite{li2022} demonstrovali v rámci projektu AlphaCode schopnost pokr
 
 
 
+
 \section{Výzkumné otázky}
 
+V rámci této práce se zaměřím na následující výzkumné otázky:
+
 \begin{itemize}
-  \item Je LLM efektivnější než člověk při code review?
-  \item Má nekritická pasivnost vliv na kvalitu code review?
-  \item Má jazyk vliv na code review?
-  \item (Umí LLM rozpoznat a navrhnout efektivní refaktoring v porovnání s běžnými nástroji (např. SonarQube, linters)?)
-  \item (Jak dobře si LLM poradí s review kódu v méně běžných jazycích (např. Rust, Haskell, Elixir)?)
-  \item (Je výhodnější provádět code review člověkem a pak ho doplnit LLM, nebo naopak?)
+  \item \textbf{Má nekritická pasivnost vliv na kvalitu code review?}\\
+  Nekritická pasivnost představuje tendenci LLM vyhýbat se kritickým hodnocením a přílišné důvěře v předložený kód. Tato otázka zkoumá, do jaké míry tento fenomén ovlivňuje kvalitu a užitečnost automatizovaného code review ve srovnání s lidskými recenzenty.
+  
+  \item \textbf{Má jazyk vliv na code review?}\\
+  V rámci experimentu budu porovnávat výsledky code review prováděného v češtině a angličtině. Toto srovnání může být zajímavé vzhledem k tomu, že dat v českém jazyce je výrazně méně než v angličtině, což by mohlo ovlivnit kvalitu zpětné vazby od LLM. Zároveň je možné, že na programovacím jazyce a jeho syntaxi nezáleží tolik jako na přirozeném jazyce, ve kterém je review prováděno.
+  
+  \item \textbf{Jak dobře si LLM poradí s review kódu v méně běžném jazyce jako je Haskell?}\\
+  Zaměřím se výhradně na Haskell, jelikož jde o méně používaný funkcionální programovací jazyk s odlišným paradigmatem než běžnější imperativní jazyky. Tato volba je zajímavá především proto, že na internetu existuje znatelně méně zdrojových kódů v Haskellu oproti jazykům jako Python, Java nebo JavaScript. To může potenciálně znamenat, že LLM měly během svého trénování k dispozici méně příkladů a best practices specifických pro Haskell, což by mohlo vést k méně kvalitním výsledkům code review pro tento jazyk.
 \end{itemize}
+
 
 \section{Návrh experimentu}
 
