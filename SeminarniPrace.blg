@@ -1,0 +1,53 @@
+This is BibTeX, Version 0.99d (TeX Live 2023/VoidLinux)
+Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
+The top-level auxiliary file: SeminarniPrace.aux
+The style file: plainnat.bst
+Database file #1: bibliography.bib
+Warning--entry type for "falcon2024devto" isn't style-file defined
+--line 43 of file bibliography.bib
+Warning--I didn't find a database entry for "sun2025bitsaicrautomatedcodereview"
+Warning--I didn't find a database entry for "taecharungroj2023"
+Warning--I didn't find a database entry for "fan2023"
+Warning--I didn't find a database entry for "li2022"
+You've used 3 entries,
+            2773 wiz_defined-function locations,
+            613 strings with 5354 characters,
+and the built_in function-call counts, 963 in all, are:
+= -- 86
+> -- 30
+< -- 3
++ -- 12
+- -- 9
+* -- 51
+:= -- 161
+add.period$ -- 12
+call.type$ -- 3
+change.case$ -- 12
+chr.to.int$ -- 3
+cite$ -- 6
+duplicate$ -- 53
+empty$ -- 93
+format.name$ -- 12
+if$ -- 197
+int.to.chr$ -- 1
+int.to.str$ -- 1
+missing$ -- 2
+newline$ -- 26
+num.names$ -- 12
+pop$ -- 28
+preamble$ -- 1
+purify$ -- 9
+quote$ -- 0
+skip$ -- 40
+stack$ -- 0
+substring$ -- 6
+swap$ -- 3
+text.length$ -- 0
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 33
+warning$ -- 0
+while$ -- 9
+width$ -- 0
+write$ -- 49
+(There were 5 warnings)

@@ -1,0 +1,124 @@
+https://github.com/ValdemarPospisil/HaikuWhisperer/pull/1#pullrequestreview-2815309352
+
+
+Actionable comments posted: 3
+🧹 Nitpick comments (3)
+
+    src/Main.hs (3)
+
+        70-88: Portable file handling in exportHaiku
+
+            String concatenation with folderPath ++ "/" ++ fileName hard-codes /. Use System.FilePath.(</>) for cross-platform paths.
+            show mood / show theme can contain spaces ("Reflective"), which is legal but often awkward in file names. Consider map replaceSpace … or toLower.
+            writeFile will silently overwrite existing files if timestamps collide (unlikely but possible). Using openTempFile avoids this.
+
+        Small portability fix:
+
+        -import System.Directory (createDirectoryIfMissing)
+        +import System.Directory  (createDirectoryIfMissing)
+        +import System.FilePath   ((</>))
+         ...
+        -  writeFile (folderPath ++ "/" ++ fileName) $
+        +  writeFile (folderPath </> fileName) $
+
+        135-141: Name shadowing in generateHaikuSequence obscures Prelude sequence
+
+        Binding sequence <- replicateM … hides the widely-used Prelude function sequence, which can trip up future maintenance or imports.
+
+        -      sequence <- replicateM count (generateHaiku mood theme)
+        -      return sequence
+        +      poems <- replicateM count (generateHaiku mood theme)
+        +      return poems
+
+        159-209: mainLoop grows the call stack and still uses readLn directly
+
+        Recursive mainLoop calls are not tail-recursive in the IO monad and will accumulate thunks over time.
+        Using forever or fix from Control.Monad avoids this, and you can reuse the safer parsing suggested earlier.
+
+        import Control.Monad (forever)
+
+        main :: IO ()
+        main = do
+          putStrLn "Vítej v generátoru Haiku 2.0!"
+          forever menuStep
+
+        menuStep :: IO ()
+        menuStep = do
+          showMenu
+          mChoice <- readMaybe <$> getLine
+          case mChoice of
+            ...
+
+📜 Review details
+
+Configuration used: CodeRabbit UI
+Review profile: CHILL
+Plan: Pro
+📥 Commits
+
+📒 Files selected for processing (1)
+
+
+
+
+Refactor suggestion
+
+validateHaiku – variable shadowing + incorrect syllable logic
+
+    The let lines = … binding shadows Prelude.lines, making the code harder to read and easy to misuse later.
+    Counting words (words) is not the same as counting syllables; the current check rejects perfectly valid 5-7-5 haiku that happen to have long words, and vice-versa.
+    length counts == 3 is redundant because the equality [5,7,5] already guarantees length 3.
+
+Minimal clean-up (still only word-count based, but clearer):
+
+-validateHaiku poem =
+-  let lines = words <$> lines poem
+-      counts = map length lines
+-  in  length counts == 3 && counts == [5, 7, 5]
++validateHaiku poem =
++  let wordCounts = map (length . words) (Prelude.lines poem)
++  in  wordCounts == [5,7,5]
+
+Long-term you probably want a real syllable counter (e.g. CMU dict-based).
+
+
+
+
+⚠️ Potential issue
+
+saveHaiku currently has no side-effect – history is never stored
+
+saveHaiku builds a HaikuHistory value, computes an ID, and immediately discards both, simply returning the new ID.
+Because haikuHistory is a pure constant, the map can’t be mutated without an IORef, MVar, or by threading state.
+As written, nothing is persisted and subsequent IDs will always be 1.
+
+Either:
+
+    Remove the unused machinery, or
+    Introduce a mutable reference:
+-import qualified Data.Map as Map
++import qualified Data.Map      as Map
++import           Data.IORef    (IORef, newIORef, modifyIORef', readIORef)
+ ...
+-type HaikuHistoryMap = Map.Map Int HaikuHistory
+-haikuHistory :: HaikuHistoryMap
+-haikuHistory = Map.empty
++type HaikuHistoryMap = IORef (Map.Map Int HaikuHistory)
++
++{-# NOINLINE haikuHistory #-}
++haikuHistory :: HaikuHistoryMap
++haikuHistory = unsafePerformIO (newIORef Map.empty)
+ ...
+-saveHaiku poem mood theme = do
+-  ...
+-  let newHistory = HaikuHistory poem mood theme timeStr
+-      newId = Map.size haikuHistory + 1
+-  return newId
++saveHaiku poem mood theme = do
++  let newHistory = HaikuHistory poem mood theme timeStr
++  modifyIORef' haikuHistory (\m -> Map.insert (Map.size m + 1) newHistory m)
++  Map.size <$> readIORef haikuHistory
+
+(You may prefer passing the map around explicitly instead of using a global.)
+
+
