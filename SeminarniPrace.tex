@@ -54,44 +54,49 @@ Tato práce se zabývá využitím velkých jazykových modelů (LLM) při proce
 \end{abstract}
 
 \section{Úvod do tématu}
-% ... váš text ...
 V současném softwarovém vývoji představuje \textit{code review} nedílnou součást procesu zajišťující kvalitu zdrojového kódu. Slouží nejen k odhalování chyb, ale i k předávání znalostí mezi členy týmu, udržování konzistentního stylu kódu a zvyšování celkové udržovatelnosti systému. Tato praxe je klíčová zejména ve větších týmech a projektech s dlouhodobým vývojem. V posledních letech se do vývojářského procesu stále více zapojují nástroje založené na umělé inteligenci. Jedním z nejvýraznějších pokroků v této oblasti jsou tzv. \textit{velké jazykové modely} (LLM – Large Language Models), jako je ChatGPT, Claude, Gemini nebo GitHub Copilot. Tyto modely dokáží porozumět strukturovanému i nestrukturovanému textu a generovat smysluplné odpovědi, komentáře nebo návrhy na základě vstupních dat. Otázkou tedy je, do jaké míry lze tyto nástroje využít pro automatizaci nebo podporu code review. Může LLM odhalit stejné chyby jako zkušený programátor? Je jeho návrh na refaktoring použitelný v reálném prostředí? A především – může takový model plnohodnotně doplnit, nebo dokonce nahradit lidského recenzenta? Tato seminární práce si klade za cíl popsat současný stav výzkumu v této oblasti, formulovat výzkumné otázky a navrhnout experiment, který pomůže zodpovědět, jak efektivní je využití LLM při provádění code review.
 \newpage
 
 \section{State-of-the-art}
 V současné době dochází k výraznému průniku nástrojů umělé inteligence do procesu vývoje softwaru, včetně code review. Tato sekce představuje stručný přehled aktuálního stavu výzkumu s důrazem na oblasti relevantní pro naše výzkumné otázky.
 
-\subsection{Přesnost detekce chyb}
-Srovnání efektivity LLM a lidského code review představuje jedno z klíčových témat aktuálního výzkumu. Kang et al. \cite{sun2025bitsaicrautomatedcodereview} zjistili, že LLM modely dokáží v některých případech identifikovat stejné nebo dokonce více problémů než lidští recenzenti, především v oblasti konzistence kódu a základních syntaktických chyb. Lidští recenzenti však stále excelují v identifikaci logických chyb a problémů vyžadujících hluboké porozumění doméně.
+\subsection{Výhody a nevýhody lidského code review}
+Tradiční procesy revize kódu, ačkoliv jsou zásadní pro udržení kvality softwaru a sdílení znalostí v týmu \cite{zdrojak2022}, čelí několika významným výzvám. Mezi hlavní nevýhody lidského code review patří především časová náročnost, možnost lidské chyby a nekonzistence hodnocení, která může pramenit z odlišných zkušeností a standardů jednotlivých revidentů. Jak uvádí Falcon \cite{falcon2024devto}, tyto nedostatky mohou vést ke zpoždění v rámci agilních vývojových cyklů, jako je kontinuální integrace a nasazování (CI/CD), a k nedostatečnému odhalení specifických technických problémů, pokud revidující postrádá hlubší znalost konkrétní technologie.
 
-Taecharungroj et al. \cite{taecharungroj2023} poukazují na několik klíčových limitací LLM při code review, jako je omezené chápání kontextu celé aplikace, problém s halucinacemi (generování přesvědčivě znějících, ale fakticky nesprávných informací) a zejména tzv. "nekritická pasivnost", kdy modely nejsou schopny rozpoznat subtilní designové problémy.
+Na druhou stranu, lidské code review přináší nezpochybnitelné výhody. Foster \cite{graphite2023} zdůrazňuje, že lidští recenzenti excelují v porozumění širšímu kontextu aplikace, dokáží identifikovat subtilní architektonické problémy a zohledňovat specifické požadavky projektu či organizace. Navíc tento proces slouží jako prostředek ke sdílení znalostí a mentoringu v týmu, což je aspekt, který automatizované nástroje nemohou plně nahradit.
 
-\subsection{Výzvy tradičního code review a potenciál AI} % Přidaná podsekce
-Tradiční procesy revize kódu, ačkoliv jsou zásadní pro udržení kvality softwaru a sdílení znalostí v týmu \cite{zdrojak2022}, čelí několika významným výzvám. Mezi ně patří především časová náročnost, možnost lidské chyby a nekonzistence hodnocení, která může pramenit z odlišných zkušeností a standardů jednotlivých revidentů. Jak uvádí Falcon \cite{falcon2024devto}, tyto nedostatky mohou vést ke zpoždění v rámci agilních vývojových cyklů, jako je kontinuální integrace a nasazování (CI/CD), a k nedostatečnému odhalení specifických technických problémů, pokud revidující postrádá hlubší znalost konkrétní technologie.
-V reakci na tyto limity se do popředí dostává potenciál umělé inteligence. AI nástroje, zejména velké jazykové modely, slibují automatizaci určitých aspektů revize kódu. Mohou provádět statickou analýzu kódu k identifikaci běžných syntaktických chyb, stylistických prohřešků, potenciálních bezpečnostních zranitelností či použití zastaralých částí kódu. Dále mohou navrhovat vylepšení směřující k lepší čitelnosti, efektivitě a udržovatelnosti kódu v souladu s osvědčenými programátorskými postupy. AI je také schopna detekovat anomálie a odchylky od zavedených týmových konvencí a v neposlední řadě může usnadnit práci lidským revidentům tím, že provede prvotní kontrolu a upozorní na klíčové oblasti vyžadující podrobnější lidské posouzení \cite{falcon2024devto}.
+\subsection{Výhody a nevýhody LLM code review}
+V reakci na limity lidského code review se do popředí dostává potenciál umělé inteligence. AI nástroje, zejména velké jazykové modely, slibují automatizaci určitých aspektů revize kódu. Dle Falcona \cite{falcon2024devto} mohou LLM provádět statickou analýzu kódu k identifikaci běžných syntaktických chyb, stylistických prohřešků, potenciálních bezpečnostních zranitelností či použití zastaralých částí kódu. Dále mohou navrhovat vylepšení směřující k lepší čitelnosti, efektivitě a udržovatelnosti kódu v souladu s osvědčenými programátorskými postupy. AI je také schopna detekovat anomálie a odchylky od zavedených týmových konvencí a v neposlední řadě může usnadnit práci lidským revidentům tím, že provede prvotní kontrolu a upozorní na klíčové oblasti vyžadující podrobnější lidské posouzení.
 
-\subsection{Vliv jazykových faktorů}
-% ... váš text ...
-Přestože současný výzkum přímo neadresuje rozdíly v kvalitě code review mezi různými přirozenými jazyky, Fan et al. \cite{fan2023} zdůrazňují flexibilitu LLM v interpretaci kódu a jejich schopnost poskytovat vysvětlení v přirozeném jazyce. Většina modelů byla primárně trénována na anglicky psaných materiálech, což může potenciálně vést k rozdílné kvalitě zpětné vazby v různých jazycích. Co se týče programovacích jazyků, Li et al. \cite{li2022} v rámci projektu AlphaCode demonstrovali schopnost modelů řešit úlohy v různých programovacích jazycích, nicméně efektivita modelů pro méně rozšířené jazyky jako Haskell nebyla dosud dostatečně prozkoumána. Lze předpokládat, že modely budou vykazovat nižší výkon v jazycích, které jsou méně zastoupeny v trénovacích datech.
+Navzdory těmto výhodám, Foster \cite{graphite2023} identifikuje několik klíčových limitací LLM při code review. Mezi tyto nevýhody patří omezené chápání kontextu celé aplikace, problém s halucinacemi (generování přesvědčivě znějících, ale fakticky nesprávných informací) a zejména tzv. "nekritická pasivnost", kdy modely nejsou schopny rozpoznat subtilní designové problémy. Dalším významným omezením je absence porozumění specifickým potřebám projektu a organizačním standardům, které nejsou explicitně vyjádřeny v kódu samotném.
 
-\subsection{Integrace do vývojového cyklu}
-Příklady z praxe ukazují, že integrace LLM do procesu code review vyžaduje pečlivé nastavení workflow a technické infrastruktury. Společnost Faire vyvinula orchestrátorovou službu \textit{Fairey}, která propojuje GitHub webhooky s OpenAI Assistants API a využívá techniku RAG (Retrieval Augmented Generation) pro získání kontextu specifického pro daný pull request. Jak uvádí Bjerring \cite{bjerring2024automated}, tato architektura umožňuje automatické spouštění review při splnění kritérií (např. jazyk kódu nebo obsah změn), přičemž LLM dokáží efektivně zpracovat generické aspekty revizí jako vynucování stylu kódu, kontrolu testovacího pokrytí nebo detekci zpětně nekompatibilních změn.
+\subsection{Praktické implementace v reálném prostředí}
+Příklad praktického nasazení LLM pro code review popisuje Bjerring \cite{bjerring2024automated} na implementaci ve společnosti Faire. Ta vyvinula orchestrátorovou službu \textit{Fairey}, která propojuje GitHub webhooky s OpenAI Assistants API a využívá techniku RAG (Retrieval Augmented Generation) pro získání kontextu specifického pro daný pull request. Tato architektura umožňuje automatické spouštění review při splnění kritérií jako je jazyk kódu nebo obsah změn.
 
-Klíčovým přínosem této integrace je snížení latence v procesu review. LLM dokáží rychle zpracovat rutinní úkoly, zatímco lidské recenzenty se mohou soustředit na komplexnější problémy vyžadující hlubší kontext. Faire navíc implementoval dvouúrovňový systém hodnocení kvality: kvantitativní (pomocí LLM evaluačních nástrojů) a kvalitativní (feedback od vývojářů). Tento hybridní přístup, jak poznamenává Bjerring \cite{bjerring2024automated}, umožňuje iterativní vylepšování modelů: \uv{While LLMs offer flexibility and speed, their outputs require iterative refinement of prompts to ensure consistency and correctness.}
+Klíčovým přínosem této integrace je snížení latence v procesu review. LLM dokáží rychle zpracovat rutinní úkoly, zatímco lidští recenzenti se mohou soustředit na komplexnější problémy vyžadující hlubší kontext. Zkušenosti Faire demonstrují, že i když LLM nenahradí lidské recenzenty v oblastech jako architektonické rozhodování, jejich role v automatizaci rutinních kontrol se stává významným doplňkem vývojového procesu.
 
-Pro udržení konzistence v agilních vývojových cyklech Faire využívá tzv. \textit{fixtures} – snapshoty výstupů funkcí pro pozdější re-use. Toto řešení adresuje problém transientní povahy pull requestů a ukazuje, že úspěšná integrace LLM do CI/CD vyžaduje nejen kvalitní modely, ale i robustní infrastrukturu pro správu kontextu. Zkušenosti Faire demonstrují, že i když LLM nenahradí lidské recenzenty v oblastech jako architektonické rozhodování, jejich role v automatizaci rutinních kontrol se stává nepostradatelnou.
+\subsection{Nástroje a technologie pro automatizované code review}
+V současné době existuje několik způsobů, jak využít LLM pro code review v různých fázích vývojového procesu. Foster \cite{graphite2023} popisuje jednoduchý, ale účinný přístup pro ad-hoc code review: k URL adrese pull requestu na GitHubu stačí přidat příponu \texttt{.diff}, zkopírovat výsledný diff soubor a vložit ho do libovolného chatovacího LLM jako ChatGPT, Claude nebo Gemini. Tento přístup je limitován kontextovým oknem daného modelu, ale poskytuje rychlou zpětnou vazbu bez nutnosti specializovaných nástrojů.
+
+Pro systematičtější integraci do vývojového procesu Falcon \cite{falcon2024devto} představuje řešení založené na kombinaci git hooks a Code Llama modelu běžícího v Docker kontejneru. Jeho implementace spočívá ve vytvoření pre-commit hooku, který automaticky spouští code review pro všechny modifikované Python soubory před dokončením commitu. Tento přístup nabízí několik výhod:
+
+\begin{itemize}
+  \item Okamžitá zpětná vazba ještě před odesláním kódu do repozitáře
+  \item Konzistentní kontrola kódu pro každou změnu
+  \item Automatizovaná dokumentace doporučení v markdown formátu
+  \item Možnost lokálního běhu bez závislosti na externích službách
+\end{itemize}
+
+Vedle těchto přístupů existují i integrovaná řešení jako GitHub Copilot \cite{copilot2023}, který poskytuje code review přímo v prostředí GitHub pull requestů, nebo samostatné nástroje jako Code Rabbit, které se automaticky aktivují při vytvoření pull requestu. Tyto nástroje často využívají pokročilé techniky jako je RAG (Retrieval Augmented Generation) pro lepší porozumění kontextu kódu a poskytují strukturovanější a relevantnější zpětnou vazbu než obecné chatovací modely.
 
 
 \section{Výzkumné otázky}
-% ... váš text ...
 V rámci této práce se zaměřím na následující výzkumné otázky:
 \begin{itemize}
   \item \textbf{Jak přesná je detekce chyb (bugů, antipatternů) LLM ve srovnání s lidským code reviewerem?}\\
   Tato otázka je zásadní pro pochopení skutečné efektivity LLM v kontextu code review. Zaměřuje se na schopnost modelů identifikovat různé typy problémů v kódu - od syntaktických chyb přes sémantické problémy až po narušení designových vzorů a architektonické nedostatky. Současný výzkum naznačuje, že LLM mohou být efektivní při identifikaci formálních chyb, ale jejich schopnost odhalit subtilnější problémy vyžadující kontextuální porozumění může být omezená. Experiment bude zahrnovat kvantitativní srovnání počtu a typů nalezených problémů mezi LLM a lidskými recenzenty.
   \item \textbf{Má nekritická pasivnost vliv na kvalitu code review?}\\
   Nekritická pasivnost představuje tendenci LLM vyhýbat se kritickým hodnocením a přílišné důvěře v předložený kód. Tato otázka zkoumá, do jaké míry tento fenomén ovlivňuje kvalitu a užitečnost automatizovaného code review ve srovnání s lidskými recenzenty.
-  \item \textbf{Má jazyk vliv na code review?}\\
-  V rámci experimentu budu porovnávat výsledky code review prováděného v češtině a angličtině. Toto srovnání může být zajímavé vzhledem k tomu, že dat v českém jazyce je výrazně méně než v angličtině, což by mohlo ovlivnit kvalitu zpětné vazby od LLM. Zároveň je možné, že na programovacím jazyce a jeho syntaxi nezáleží tolik jako na přirozeném jazyce, ve kterém je review prováděno.
   \item \textbf{Jak dobře si LLM poradí s review kódu v méně běžném jazyce jako je Haskell?}\\
   Zaměřím se výhradně na Haskell, jelikož jde o méně používaný funkcionální programovací jazyk s odlišným paradigmatem než běžnější imperativní jazyky. Tato volba je zajímavá především proto, že na internetu existuje znatelně méně zdrojových kódů v Haskellu oproti jazykům jako Python, Java nebo JavaScript. To může potenciálně znamenat, že LLM měly během svého trénování k dispozici méně příkladů a best practices specifických pro Haskell, což by mohlo vést k méně kvalitním výsledkům code review pro tento jazyk.
 \end{itemize}
@@ -120,8 +125,7 @@ V rámci této práce se zaměřím na následující výzkumné otázky:
 \end{itemize}
 
 % --- TISK BIBLIOGRAFIE ---
- \bibliographystyle{plainnat} % TOTO ODSTRANIT NEBO ZAKOMENTOVAT
-\bibliography{bibliography}   % TOTO ODSTRANIT NEBO ZAKOMENTOVAT
-%\printbibliography % Nový příkaz pro tisk bibliografie s biblatex
+\bibliographystyle{plainnat}
+\bibliography{bibliography}
 
 \end{document}

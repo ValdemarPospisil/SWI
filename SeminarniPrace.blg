@@ -3,51 +3,59 @@ Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
 The top-level auxiliary file: SeminarniPrace.aux
 The style file: plainnat.bst
 Database file #1: bibliography.bib
+You're missing a field name---line 8 of file bibliography.bib
+ :   date = {2023-05-18}, 
+ :                        % Poznámka: Datum je odhadnuto, prosím ověřit
+I'm skipping whatever remains of this entry
+You're missing a field name---line 18 of file bibliography.bib
+ :   date = {2022-11-10}, 
+ :                        % Poznámka: Datum je odhadnuto, prosím ověřit
+I'm skipping whatever remains of this entry
 Warning--entry type for "falcon2024devto" isn't style-file defined
---line 43 of file bibliography.bib
-Warning--I didn't find a database entry for "sun2025bitsaicrautomatedcodereview"
-Warning--I didn't find a database entry for "taecharungroj2023"
-Warning--I didn't find a database entry for "fan2023"
-Warning--I didn't find a database entry for "li2022"
-You've used 3 entries,
+--line 45 of file bibliography.bib
+You're missing a field name---line 61 of file bibliography.bib
+ :   date = {2024-03-14}, 
+ :                        % Poznámka: Datum je odhadnuto, prosím ověřit
+I'm skipping whatever remains of this entry
+You've used 5 entries,
             2773 wiz_defined-function locations,
-            613 strings with 5354 characters,
-and the built_in function-call counts, 963 in all, are:
-= -- 86
-> -- 30
-< -- 3
-+ -- 12
-- -- 9
-* -- 51
-:= -- 161
-add.period$ -- 12
-call.type$ -- 3
-change.case$ -- 12
-chr.to.int$ -- 3
-cite$ -- 6
-duplicate$ -- 53
-empty$ -- 93
-format.name$ -- 12
-if$ -- 197
+            619 strings with 5517 characters,
+and the built_in function-call counts, 1572 in all, are:
+= -- 141
+> -- 50
+< -- 5
++ -- 20
+- -- 15
+* -- 83
+:= -- 258
+add.period$ -- 19
+call.type$ -- 5
+change.case$ -- 20
+chr.to.int$ -- 5
+cite$ -- 10
+duplicate$ -- 87
+empty$ -- 155
+format.name$ -- 20
+if$ -- 326
 int.to.chr$ -- 1
 int.to.str$ -- 1
-missing$ -- 2
-newline$ -- 26
-num.names$ -- 12
-pop$ -- 28
+missing$ -- 3
+newline$ -- 37
+num.names$ -- 20
+pop$ -- 48
 preamble$ -- 1
-purify$ -- 9
+purify$ -- 15
 quote$ -- 0
-skip$ -- 40
+skip$ -- 67
 stack$ -- 0
-substring$ -- 6
-swap$ -- 3
+substring$ -- 10
+swap$ -- 5
 text.length$ -- 0
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 33
+type$ -- 55
 warning$ -- 0
-while$ -- 9
+while$ -- 15
 width$ -- 0
-write$ -- 49
-(There were 5 warnings)
+write$ -- 75
+(There were 3 error messages)
