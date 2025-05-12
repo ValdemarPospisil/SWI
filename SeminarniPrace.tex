@@ -3,22 +3,22 @@
 % --- ZÁKLADNÍ BALÍČKY ---
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
-\usepackage[czech]{babel} % Babel by měl být před biblatex, pokud možno
+\usepackage[czech]{babel}
 \usepackage{lmodern}
 \usepackage{amsmath, amssymb}
 \usepackage{graphicx}
 \usepackage{float}
-\usepackage{hyperref} % Obvykle se doporučuje načítat hyperref jako jeden z posledních
+\usepackage{hyperref}
 \usepackage{caption}
-\usepackage{csquotes}   % Důležité pro biblatex, načtěte PŘED biblatex
+\usepackage{csquotes}
 \usepackage{geometry}
 
 % --- OSTATNÍ BALÍČKY ---
-\usepackage[numbers]{natbib} % pro citace podle ISO 690 stylu
-\usepackage{listings} % pro kód
-\usepackage{xcolor} % barvy pro listings
-\usepackage{enumitem} % lepší seznamy
-\pagecolor{white} % Opravil jsem překlep pagecolor{white}
+\usepackage[numbers]{natbib}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\pagecolor{white} 
 \color{black}
 
 % --- NASTAVENÍ STRÁNKY ---
@@ -94,7 +94,7 @@ Vedle těchto přístupů existují i integrovaná řešení jako GitHub Copilot
 V rámci této práce se zaměřím na následující výzkumné otázky:
 \begin{itemize}
   \item \textbf{Jak přesná je detekce chyb (bugů, antipatternů) LLM ve srovnání s lidským code reviewerem?}\\
-  Tato otázka je zásadní pro pochopení skutečné efektivity LLM v kontextu code review. Zaměřuje se na schopnost modelů identifikovat různé typy problémů v kódu - od syntaktických chyb přes sémantické problémy až po narušení designových vzorů a architektonické nedostatky. Současný výzkum naznačuje, že LLM mohou být efektivní při identifikaci formálních chyb, ale jejich schopnost odhalit subtilnější problémy vyžadující kontextuální porozumění může být omezená. Experiment bude zahrnovat kvantitativní srovnání počtu a typů nalezených problémů mezi LLM a lidskými recenzenty.
+  Tato otázka je zásadní pro pochopení skutečné efektivity LLM v kontextu code review. Zaměřuje se na schopnost modelů identifikovat různé typy problémů v kódu - od syntaktických chyb přes sémantické problémy až po narušení designových vzorů a architektonické nedostatky. Současný výzkum naznačuje, že LLM mohou být efektivní při identifikaci formálních chyb, ale jejich schopnost odhalit subtilnější problémy vyžadující kontextuální porozumění může být omezená. Experiment bude zahrnovat kvantitativ:wqní srovnání počtu a typů nalezených problémů mezi LLM a lidskými recenzenty.
   \item \textbf{Má nekritická pasivnost vliv na kvalitu code review?}\\
   Nekritická pasivnost představuje tendenci LLM vyhýbat se kritickým hodnocením a přílišné důvěře v předložený kód. Tato otázka zkoumá, do jaké míry tento fenomén ovlivňuje kvalitu a užitečnost automatizovaného code review ve srovnání s lidskými recenzenty.
   \item \textbf{Jak dobře si LLM poradí s review kódu v méně běžném jazyce jako je Haskell?}\\
