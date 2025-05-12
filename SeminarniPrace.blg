@@ -17,9 +17,10 @@ You're missing a field name---line 61 of file bibliography.bib
  :   date = {2024-03-14}, 
  :                        % Poznámka: Datum je odhadnuto, prosím ověřit
 I'm skipping whatever remains of this entry
+Warning--I didn't find a database entry for "pospisil2025"
 You've used 5 entries,
             2773 wiz_defined-function locations,
-            619 strings with 5517 characters,
+            620 strings with 5529 characters,
 and the built_in function-call counts, 1572 in all, are:
 = -- 141
 > -- 50
