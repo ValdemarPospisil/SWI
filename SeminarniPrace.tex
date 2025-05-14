@@ -124,10 +124,10 @@ Do kódu byly záměrně vloženy následující problémy:
 \subsection{Metodika testování LLM}
 Pro testování byly vybrány čtyři široce používané velké jazykové modely:
 \begin{itemize}
-  \item Claude (Anthropic)
-  \item ChatGPT (OpenAI)
-  \item Gemini (Google)
-  \item DeepSeek (DeepSeek AI)
+  \item Claude (Anthropic) \cite{claude2025}
+  \item ChatGPT (OpenAI) \cite{chatgpt2025}
+  \item Gemini (Google) \cite{gemini2025}
+  \item DeepSeek (DeepSeek AI) \cite{deepseek2025}
 \end{itemize}
 
 Pro účely zkoumání vlivu nekritické pasivnosti na kvalitu code review byly pro každý model připraveny tři různé typy promptů:
@@ -195,10 +195,6 @@ Experiment byl proveden následujícím způsobem:
 
 Tento metodický přístup mi umožnil systematicky zkoumat, jak formulace promptu ovlivňuje kritičnost a celkovou kvalitu code review poskytovaného jazykovými modely, a zjistit, zda a do jaké míry se u jednotlivých modelů projevuje fenomén nekritické pasivnosti.
 
-\begin{thebibliography}{9}
-\bibitem{pospisil2025} POSPÍŠIL, Valdemar. SWI [online]. GitHub, 2025 [cit. 2025-05-12]. Dostupné z: https://github.com/ValdemarPospisil/SWI/
-\end{thebibliography}
-
 \section{Výsledky a diskuze}
 
 Pro vyhodnocení vlivu nekritické pasivnosti na kvalitu code review provedeného velkými jazykovými modely jsem shromáždil výsledky testování čtyř modelů (Claude, ChatGPT, Gemini a DeepSeek) při třech různých typech promptů. Výsledky jsou shrnuty v následující tabulce:
@@ -208,36 +204,47 @@ Pro vyhodnocení vlivu nekritické pasivnosti na kvalitu code review provedenéh
 \begin{tabular}{|l|l|c|c|c|c|c|c|}
 \hline
 \textbf{Model} & \textbf{Prompt} & \textbf{\begin{tabular}[c]{@{}c@{}}Zjevné\\problémy\\(0-4)\end{tabular}} & \textbf{\begin{tabular}[c]{@{}c@{}}Střední\\problémy\\(0-4)\end{tabular}} & \textbf{\begin{tabular}[c]{@{}c@{}}Subtilní\\problémy\\(0-6)\end{tabular}} & \textbf{\begin{tabular}[c]{@{}c@{}}Kvalita\\řešení\\(1-5)\end{tabular}} & \textbf{\begin{tabular}[c]{@{}c@{}}Index\\pochleb.\\(1-5)\end{tabular}} & \textbf{\begin{tabular}[c]{@{}c@{}}Celkové\\skóre\\(0-100)\end{tabular}} \\ \hline
-Claude & Neutrální & 2 & 2 & 2 & 4 & 3 &    \\ \hline
-Claude & Pozitivní & 1 & 0 & 0 & 2 & 4 &    \\ \hline
-Claude & Negativní & 4 & 3 & 4 & 3 & 1 &    \\ \hline
-ChatGPT & Neutrální & 4  & 3 & 3 & 4 & 3 &   \\ \hline
-ChatGPT & Pozitivní & 4 & 4 & 1 & 3 & 4 &   \\ \hline
-ChatGPT & Negativní & 3 & 4 & 4 & 4 & 1 &   \\ \hline
-Gemini & Neutrální & 3 & 4 & 3 & 4 & 4 &    \\ \hline
-Gemini & Pozitivní & 2 & 2 & 1 & 3 & 5 &    \\ \hline
-Gemini & Negativní & 3 & 4 & 3 & 5 & 2 &    \\ \hline
-DeepSeek & Neutrální & 4 & 4 & 5 & 4 & 3 &  \\ \hline
-DeepSeek & Pozitivní & 4 & 4 & 3 & 3 & 3 &  \\ \hline
-DeepSeek & Negativní & 4 & 3 & 5 & 4 & 1 &  \\ \hline
+Claude & Neutrální & 2 & 2 & 2 & 4 & 3 & 62 \\ \hline
+Claude & Pozitivní & 1 & 0 & 0 & 2 & 4 & 23 \\ \hline
+Claude & Negativní & 4 & 3 & 4 & 3 & 1 & 84 \\ \hline
+ChatGPT & Neutrální & 4  & 3 & 3 & 4 & 3 & 86 \\ \hline
+ChatGPT & Pozitivní & 4 & 4 & 1 & 3 & 4 & 75 \\ \hline
+ChatGPT & Negativní & 3 & 4 & 4 & 4 & 1 & 88 \\ \hline
+Gemini & Neutrální & 3 & 4 & 3 & 4 & 4 & 85 \\ \hline
+Gemini & Pozitivní & 2 & 2 & 1 & 3 & 5 & 45 \\ \hline
+Gemini & Negativní & 3 & 4 & 3 & 5 & 2 & 86 \\ \hline
+DeepSeek & Neutrální & 4 & 4 & 5 & 4 & 3 & 97 \\ \hline
+DeepSeek & Pozitivní & 4 & 4 & 3 & 3 & 3 & 85 \\ \hline
+DeepSeek & Negativní & 4 & 3 & 5 & 4 & 1 & 94 \\ \hline
 \end{tabular}
 \caption{Výsledky hodnocení code review pomocí LLM}
 \end{table}
 
-\subsection{Analýza vlivu nekritické pasivnosti}
+\subsection{Srovnání mezi modely}
+Na základě výsledků experimentu je patrné, že fenomén nekritické pasivnosti ovlivňuje různé modely s odlišnou intenzitou. Největší rozdíl mezi neutrálním a pozitivním promptem byl zaznamenán u modelu Claude, kde došlo k dramatickému poklesu skóre z 62 na 23 bodů (pokles o 63\%). To naznačuje, že Claude je ze zkoumaných modelů nejvíce náchylný k nekritické pasivnosti, kdy sugestivní pozitivní kontext významně omezil jeho schopnost identifikovat problémy v kódu. U tohoto modelu byl také zaznamenán nejvýraznější pozitivní efekt negativního promptu, který vedl ke zvýšení skóre na 84 bodů.
 
-% Zde budete moci doplnit analýzu výsledků na základě získaných dat
+Naproti tomu model DeepSeek prokázal nejvyšší odolnost vůči sugestivním promptům, kde rozdíl mezi neutrálním a pozitivním promptem činil pouze 12 bodů (pokles z 97 na 85 bodů, tedy přibližně 12\%). Tento model také dosáhl nejlepších výsledků v absolutních číslech, což naznačuje jeho vyšší celkovou efektivitu při provádění code review.
 
-\subsubsection{Srovnání mezi modely}
-% Zde budete moci popsat, který model byl nejvíce ovlivněn typem promptu
+Modely ChatGPT a Gemini vykazovaly střední míru ovlivnitelnosti, s poklesem při pozitivním promptu o 13\% a 47\%, v uvedeném pořadí. Zajímavým zjištěním je, že zatímco ChatGPT byl méně ovlivněn pozitivním promptem, Gemini vykazoval výrazně lepší výsledky při negativním promptu, což naznačuje odlišné charakteristiky těchto dvou modelů při zpracování sugestivních instrukcí.
 
-\subsubsection{Rozdíly v identifikaci různých typů problémů}
-% Zde budete moci popsat, jak se lišila schopnost modelů identifikovat různě závažné problémy
+\subsection{Rozdíly v identifikaci různých typů problémů}
+Analýza dat odhalila zajímavé vzorce v tom, jak různé typy problémů jsou ovlivněny nekritickou pasivností. U subtilních problémů byl zaznamenán nejdramatičtější pokles schopnosti identifikace při použití pozitivního promptu. Například Claude nedokázal identifikovat žádný ze subtilních problémů při pozitivním promptu, přestože při neutrálním promptu jich odhalil 2 a při negativním promptu dokonce 4 z celkových 6. Podobný, i když méně dramatický trend byl pozorován u všech testovaných modelů.
+
+U zjevných problémů byl efekt nekritické pasivnosti méně výrazný. DeepSeek a ChatGPT dokázaly identifikovat plný počet (4 ze 4) zjevných problémů i při pozitivním promptu, což naznačuje, že jejich schopnost odhalit očividné problémy je robustnější vůči sugestivním instrukcím. Claude byl v tomto ohledu opět nejvíce ovlivněn, s poklesem identifikace zjevných problémů z 2 na 1 při pozitivním promptu.
+
+Středně závažné problémy vykazovaly podobný trend jako subtilní problémy, s výrazným poklesem schopnosti identifikace při pozitivním promptu, zejména u modelů Claude a Gemini. Zajímavé je, že negativní prompt zpravidla nevedl k významnému zlepšení oproti neutrálnímu promptu, což naznačuje, že explicitní pobídka ke kritičnosti má menší efekt než sugestivní pochvala na schopnost modelů identifikovat problémy střední závažnosti.
 
 \subsection{Dopady na týmovou práci}
 Zjištěné výsledky mají významné implikace pro využití LLM při code review v reálných vývojových týmech:
 
-% Zde budete moci popsat praktické dopady vašich zjištění
+\paragraph{Optimalizace promptů} Výsledky jasně naznačují důležitost pečlivého formulování promptů při využívání LLM pro code review. Příliš pozitivní či pochlebující formulace může výrazně snížit efektivitu těchto nástrojů, zejména při identifikaci subtilnějších problémů. Pro praktické nasazení v týmech je tedy vhodné standardizovat prompty směrem k neutrálním nebo mírně negativním formulacím, aby byla zajištěna maximální efektivita.
+
+\paragraph{Výběr vhodného modelu} Značné rozdíly mezi jednotlivými modely naznačují, že volba konkrétního LLM může mít zásadní vliv na kvalitu automatizovaného code review. DeepSeek se v našem experimentu ukázal jako nejrobustnější volba s nejmenším vlivem nekritické pasivnosti, zatímco Claude by měl být používán s opatrností vzhledem k jeho vyšší náchylnosti k tomuto jevu.
+
+\paragraph{Kombinace s lidským hodnocením} Žádný z testovaných modelů nedosáhl 100\% úspěšnosti při identifikaci všech problémů, což zdůrazňuje, že LLM by měly být používány jako doplněk, nikoli náhrada lidského code review. Zejména pro subtilní problémy, které často vyžadují hluboké porozumění kontextu projektu, zůstává lidský úsudek nenahraditelný.
+
+\paragraph{Vzdělávání týmu} Vývojářské týmy by měly být obeznámeny s fenoménem nekritické pasivnosti a jeho potenciálními dopady na kvalitu code review. Toto povědomí může pomoci vývojářům lépe interpretovat a kriticky hodnotit zpětnou vazbu poskytovanou jazykovými modely.
+
 
 \section{Závěr}
 % ... váš text ...

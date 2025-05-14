@@ -12,51 +12,50 @@ You're missing a field name---line 18 of file bibliography.bib
  :                        % Poznámka: Datum je odhadnuto, prosím ověřit
 I'm skipping whatever remains of this entry
 Warning--entry type for "falcon2024devto" isn't style-file defined
---line 45 of file bibliography.bib
-You're missing a field name---line 61 of file bibliography.bib
+--line 29 of file bibliography.bib
+You're missing a field name---line 45 of file bibliography.bib
  :   date = {2024-03-14}, 
  :                        % Poznámka: Datum je odhadnuto, prosím ověřit
 I'm skipping whatever remains of this entry
-Warning--I didn't find a database entry for "pospisil2025"
-You've used 5 entries,
+You've used 10 entries,
             2773 wiz_defined-function locations,
-            620 strings with 5529 characters,
-and the built_in function-call counts, 1572 in all, are:
-= -- 141
-> -- 50
-< -- 5
-+ -- 20
-- -- 15
-* -- 83
-:= -- 258
-add.period$ -- 19
-call.type$ -- 5
-change.case$ -- 20
-chr.to.int$ -- 5
-cite$ -- 10
-duplicate$ -- 87
-empty$ -- 155
-format.name$ -- 20
-if$ -- 326
+            640 strings with 6019 characters,
+and the built_in function-call counts, 3057 in all, are:
+= -- 271
+> -- 100
+< -- 10
++ -- 40
+- -- 30
+* -- 158
+:= -- 483
+add.period$ -- 34
+call.type$ -- 10
+change.case$ -- 40
+chr.to.int$ -- 10
+cite$ -- 20
+duplicate$ -- 162
+empty$ -- 315
+format.name$ -- 40
+if$ -- 646
 int.to.chr$ -- 1
 int.to.str$ -- 1
 missing$ -- 3
-newline$ -- 37
-num.names$ -- 20
-pop$ -- 48
+newline$ -- 62
+num.names$ -- 40
+pop$ -- 108
 preamble$ -- 1
-purify$ -- 15
+purify$ -- 30
 quote$ -- 0
-skip$ -- 67
+skip$ -- 137
 stack$ -- 0
-substring$ -- 10
-swap$ -- 5
+substring$ -- 20
+swap$ -- 10
 text.length$ -- 0
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 55
+type$ -- 110
 warning$ -- 0
-while$ -- 15
+while$ -- 30
 width$ -- 0
-write$ -- 75
+write$ -- 135
 (There were 3 error messages)
