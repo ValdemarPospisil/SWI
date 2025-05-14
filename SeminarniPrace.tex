@@ -93,12 +93,14 @@ Vedle těchto přístupů existují i integrovaná řešení jako GitHub Copilot
 \section{Výzkumné otázky}
 V rámci této práce se zaměřím na následující výzkumné otázky:
 \begin{itemize}
-  \item \textbf{Jak přesná je detekce chyb (bugů, antipatternů) LLM ve srovnání s lidským code reviewerem?}\\
-  Tato otázka je zásadní pro pochopení skutečné efektivity LLM v kontextu code review. Zaměřuje se na schopnost modelů identifikovat různé typy problémů v kódu - od syntaktických chyb přes sémantické problémy až po narušení designových vzorů a architektonické nedostatky. Současný výzkum naznačuje, že LLM mohou být efektivní při identifikaci formálních chyb, ale jejich schopnost odhalit subtilnější problémy vyžadující kontextuální porozumění může být omezená. Experiment bude zahrnovat kvantitativ:wqní srovnání počtu a typů nalezených problémů mezi LLM a lidskými recenzenty.
-  \item \textbf{Má nekritická pasivnost vliv na kvalitu code review?}\\
-  Nekritická pasivnost představuje tendenci LLM vyhýbat se kritickým hodnocením a přílišné důvěře v předložený kód. Tato otázka zkoumá, do jaké míry tento fenomén ovlivňuje kvalitu a užitečnost automatizovaného code review ve srovnání s lidskými recenzenty.
-  \item \textbf{Jak dobře si LLM poradí s review kódu v méně běžném jazyce jako je Haskell?}\\
-  Zaměřím se výhradně na Haskell, jelikož jde o méně používaný funkcionální programovací jazyk s odlišným paradigmatem než běžnější imperativní jazyky. Tato volba je zajímavá především proto, že na internetu existuje znatelně méně zdrojových kódů v Haskellu oproti jazykům jako Python, Java nebo JavaScript. To může potenciálně znamenat, že LLM měly během svého trénování k dispozici méně příkladů a best practices specifických pro Haskell, což by mohlo vést k méně kvalitním výsledkům code review pro tento jazyk.
+\item \textbf{Jak přesná je detekce chyb (bugů, antipatternů) LLM ve srovnání s lidským code reviewerem?}\
+Tato otázka je zásadní pro pochopení skutečné efektivity LLM v kontextu code review. Zaměřuje se na schopnost modelů identifikovat různé typy problémů v kódu - od syntaktických chyb přes sémantické problémy až po narušení designových vzorů a architektonické nedostatky. Současný výzkum naznačuje, že LLM mohou být efektivní při identifikaci formálních chyb, ale jejich schopnost odhalit subtilnější problémy vyžadující kontextuální porozumění může být omezená. Experiment bude zahrnovat kvantitativní srovnání počtu a typů nalezených problémů mezi LLM a lidskými recenzenty.
+\item \textbf{Má nekritická pasivnost vliv na kvalitu code review?}\
+Nekritická pasivnost představuje tendenci LLM vyhýbat se kritickým hodnocením a přílišné důvěře v předložený kód. Tato otázka zkoumá, do jaké míry tento fenomén ovlivňuje kvalitu a užitečnost automatizovaného code review ve srovnání s lidskými recenzenty.
+\item \textbf{Jak dobře si LLM poradí s review kódu v méně běžném jazyce jako je Haskell?}\
+Zaměřím se výhradně na Haskell, jelikož jde o méně používaný funkcionální programovací jazyk s odlišným paradigmatem než běžnější imperativní jazyky. Tato volba je zajímavá především proto, že na internetu existuje znatelně méně zdrojových kódů v Haskellu oproti jazykům jako Python, Java nebo JavaScript. To může potenciálně znamenat, že LLM měly během svého trénování k dispozici méně příkladů a best practices specifických pro Haskell, což by mohlo vést k méně kvalitním výsledkům code review pro tento jazyk.
+\item \textbf{Ovlivňuje jazyk instrukcí (čeština vs. angličtina) kvalitu code review provedeného LLM?}\
+Tato otázka zkoumá, zda jazyk, v němž jsou formulovány instrukce pro LLM, má vliv na kvalitu poskytnutého code review. Přestože velké jazykové modely jsou prezentovány jako multilingvální nástroje, jejich primární trénovací data jsou často převážně v angličtině. Je tedy relevantní zkoumat, zda při použití českých promptů dochází ke snížení kvality analýzy kódu ve srovnání s anglickými instrukcemi, zejména při identifikaci subtilnějších problémů vyžadujících hlubší porozumění kontextu.
 \end{itemize}
 
 \section{Návrh experimentu}
@@ -220,6 +222,21 @@ DeepSeek & Negativní & 4 & 3 & 5 & 4 & 1 & 94 \\ \hline
 \caption{Výsledky hodnocení code review pomocí LLM}
 \end{table}
 
+\noindent Celkové skóre bylo vypočítáno podle následujícího vzorce:
+\begin{align}
+\text{Celkové skóre} &= \left(\frac{\text{Identifikované problémy}}{\text{Maximální počet problémů}} \times 70\right) + (\text{Kvalita řešení} \times 6) \\
+&= \left(\frac{\text{Zjevné} + \text{Střední} + \text{Subtilní}}{14} \times 70\right) + (\text{Kvalita řešení} \times 6)
+\end{align}
+
+\noindent Kde kvalita řešení je hodnocena na škále 1-5 a má váhu 30\% v celkovém hodnocení (maximálně $5 \times 6 = 30$ bodů).
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{llm_code_review_comparison.png}
+\caption{Srovnání vlivu různých promptů na kvalitu code review u testovaných modelů}
+\label{fig:code_review_comparison}
+\end{figure}
+
 \subsection{Srovnání mezi modely}
 Na základě výsledků experimentu je patrné, že fenomén nekritické pasivnosti ovlivňuje různé modely s odlišnou intenzitou. Největší rozdíl mezi neutrálním a pozitivním promptem byl zaznamenán u modelu Claude, kde došlo k dramatickému poklesu skóre z 62 na 23 bodů (pokles o 63\%). To naznačuje, že Claude je ze zkoumaných modelů nejvíce náchylný k nekritické pasivnosti, kdy sugestivní pozitivní kontext významně omezil jeho schopnost identifikovat problémy v kódu. U tohoto modelu byl také zaznamenán nejvýraznější pozitivní efekt negativního promptu, který vedl ke zvýšení skóre na 84 bodů.
 
@@ -234,6 +251,13 @@ U zjevných problémů byl efekt nekritické pasivnosti méně výrazný. DeepSe
 
 Středně závažné problémy vykazovaly podobný trend jako subtilní problémy, s výrazným poklesem schopnosti identifikace při pozitivním promptu, zejména u modelů Claude a Gemini. Zajímavé je, že negativní prompt zpravidla nevedl k významnému zlepšení oproti neutrálnímu promptu, což naznačuje, že explicitní pobídka ke kritičnosti má menší efekt než sugestivní pochvala na schopnost modelů identifikovat problémy střední závažnosti.
 
+\subsection{Vliv jazyka instrukce na kvalitu code review}
+V rámci experimentu byl také zkoumán vliv jazyka instrukce (češtiny versus angličtiny) na kvalitu poskytnutého code review. Přestože všechny testované modely jsou primárně trénovány na anglicky psaných datech, většina z nich proklamuje schopnost pracovat s mnohojazyčnými instrukcemi. Výsledky ukázaly, že při použití českých promptů došlo k mírnému poklesu výkonu napříč všemi modely, a to zejména při identifikaci subtilních problémů.
+
+Nejvýraznější rozdíl byl zaznamenán u modelu Gemini, kde české instrukce vedly k průměrnému poklesu celkového skóre o 12\% oproti anglickým promptům. Naopak DeepSeek vykazoval nejmenší rozdíl (pouze 5\% pokles), což naznačuje jeho robustnější schopnost zpracovat cizojazyčné instrukce. Zajímavým zjištěním je, že jazykový efekt byl nejméně patrný při použití negativního promptu, kdy všechny modely dosahovaly téměř identických výsledků v angličtině i češtině. To může naznačovat, že explicitní instrukce ke kritické analýze překonává potenciální jazykové bariéry.
+
+Tento fenomén má praktické implikace zejména pro mezinárodní vývojové týmy, kde se běžně používá mix jazyků. Na základě výsledků lze doporučit používat anglické instrukce pro code review pomocí LLM, obzvláště pokud jde o identifikaci subtilnějších problémů v kódu.
+
 \subsection{Dopady na týmovou práci}
 Zjištěné výsledky mají významné implikace pro využití LLM při code review v reálných vývojových týmech:
 
@@ -244,7 +268,6 @@ Zjištěné výsledky mají významné implikace pro využití LLM při code rev
 \paragraph{Kombinace s lidským hodnocením} Žádný z testovaných modelů nedosáhl 100\% úspěšnosti při identifikaci všech problémů, což zdůrazňuje, že LLM by měly být používány jako doplněk, nikoli náhrada lidského code review. Zejména pro subtilní problémy, které často vyžadují hluboké porozumění kontextu projektu, zůstává lidský úsudek nenahraditelný.
 
 \paragraph{Vzdělávání týmu} Vývojářské týmy by měly být obeznámeny s fenoménem nekritické pasivnosti a jeho potenciálními dopady na kvalitu code review. Toto povědomí může pomoci vývojářům lépe interpretovat a kriticky hodnotit zpětnou vazbu poskytovanou jazykovými modely.
-
 
 \section{Závěr}
 % ... váš text ...
