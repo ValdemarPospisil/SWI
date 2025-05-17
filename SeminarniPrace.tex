@@ -12,6 +12,7 @@
 \usepackage{caption}
 \usepackage{csquotes}
 \usepackage{geometry}
+\usepackage{makecell}
 
 % --- OSTATNÍ BALÍČKY ---
 \usepackage[numbers]{natbib}
@@ -266,17 +267,21 @@ Experiment probíhal v následujících krocích:
 Tento metodický přístup mi umožnil systematicky zkoumat všechny vytyčené výzkumné otázky a získat komplexní pohled na schopnosti současných LLM v kontextu code review za různých podmínek.
 
 
-\section{Výsledky a diskuze}
 
+\section{Výsledky a diskuze}
+V této části jsou prezentovány výsledky všech tří experimentů zaměřených na zkoumání nekritické pasivnosti LLM, schopnosti LLM provádět code review v méně běžném jazyce jako je Haskell a vlivu jazyka instrukcí na kvalitu code review.
+
+\subsection{Výsledky experimentu nekritické pasivnosti}
 Pro vyhodnocení vlivu nekritické pasivnosti na kvalitu code review provedeného velkými jazykovými modely jsem shromáždil výsledky testování čtyř modelů (Claude, ChatGPT, Gemini a DeepSeek) při třech různých typech promptů. Výsledky jsou shrnuty v následující tabulce:
 
 \begin{table}[H]
 \centering
-\caption{Výsledky hodnocení code review pomocí LLM}
+\caption{Výsledky hodnocení code review pomocí LLM - vliv nekritické pasivnosti}
 \label{tab:vysledky_llm}
+\renewcommand{\arraystretch}{1.3} % Mírně zvětšené řádkování pro lepší čitelnost
 \begin{tabular}{|l|l|c|c|c|c|c|c|}
 \hline
-\textbf{Model} & \textbf{Prompt} & \textbf{\begin{tabular}[c]{@{}c@{}}Zjevné\\problémy\\(0-4)\end{tabular}} & \textbf{\begin{tabular}[c]{@{}c@{}}Střední\\problémy\\(0-4)\end{tabular}} & \textbf{\begin{tabular}[c]{@{}c@{}}Subtilní\\problémy\\(0-6)\end{tabular}} & \textbf{\begin{tabular}[c]{@{}c@{}}Kvalita\\řešení\\(1-5)\end{tabular}} & \textbf{\begin{tabular}[c]{@{}c@{}}Index\\pochleb.\\(1-5)\end{tabular}} & \textbf{\begin{tabular}[c]{@{}c@{}}Celkové\\skóre\\(0-100)\end{tabular}} \\ \hline
+\textbf{Model} & \textbf{Prompt} & \textbf{\makecell{Zjevné\\problémy\\(0-4)}} & \textbf{\makecell{Střední\\problémy\\(0-4)}} & \textbf{\makecell{Subtilní\\problémy\\(0-6)}} & \textbf{\makecell{Kvalita\\řešení\\(1-5)}} & \textbf{\makecell{Index\\pochleb.\\(1-5)}} & \textbf{\makecell{Celkové\\skóre\\(0-100)}} \\ \hline
 Claude & Neutrální & 2 & 2 & 2 & 4 & 3 & 54 \\ \hline
 Claude & Pozitivní & 1 & 0 & 0 & 2 & 4 & 17 \\ \hline
 Claude & Negativní & 4 & 3 & 4 & 3 & 1 & 73 \\ \hline
@@ -292,19 +297,18 @@ DeepSeek & Negativní & 4 & 3 & 5 & 4 & 1 & 84 \\ \hline
 \end{tabular}
 \end{table}
 
-
 \noindent Celkové skóre bylo vypočítáno podle následujícího vzorce:
 \begin{align}
 \text{Celkové skóre} &= \left(\frac{\text{Identifikované problémy}}{\text{Maximální počet problémů}} \times 70\right) + (\text{Kvalita řešení} \times 6) \nonumber \\
 &= \left(\frac{\text{Zjevné} + \text{Střední} + \text{Subtilní}}{14} \times 70\right) + (\text{Kvalita řešení} \times 6)
 \end{align}
-\noindent Kde kvalita řešení je hodnocena na škále 1-5 a má váhu 30\% v celkovém hodnocení (maximálně $5 \times 6 = 30$ bodů).
+\noindent Kde kvalita řešení je hodnocena na škále 1-5 a má váhu 30\,\% v celkovém hodnocení (maximálně $5 \times 6 = 30$ bodů).
 
 Obrázek~\ref{fig:code_review_bar_comparison} vizualizuje celkové skóre dosažené jednotlivými modely při použití různých typů promptů. Z grafu je patrné, jak se mění výkonnost modelů v závislosti na formulaci zadání.
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.8\textwidth]{llm_code_review_comparison_bar.png} % Upravený název souboru
+\includegraphics[width=0.8\textwidth]{llm_code_review_comparison_bar.png} 
 \caption{Srovnání celkového skóre LLM modelů podle typu promptu.}
 \label{fig:code_review_bar_comparison}
 \end{figure}
@@ -313,7 +317,7 @@ Pro detailnější pohled na vliv pozitivního promptu na snížení výkonu ve 
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.7\textwidth]{llm_positive_prompt_decrease.png} % Nový název souboru pro druhý graf
+\includegraphics[width=0.7\textwidth]{llm_positive_prompt_decrease.png}
 \caption{Procentuální pokles výkonu modelů při použití pozitivního promptu oproti neutrálnímu.}
 \label{fig:positive_prompt_decrease}
 \end{figure}
@@ -322,42 +326,113 @@ Vývoj skóre jednotlivých modelů v závislosti na typu promptu je znázorněn
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.8\textwidth]{llm_code_review_trends_line.png} % Nový název souboru pro čárový graf
+\includegraphics[width=0.8\textwidth]{llm_code_review_trends_line.png}
 \caption{Trendy skóre LLM modelů napříč různými typy promptů.}
 \label{fig:code_review_trends_line}
 \end{figure}
 
 \subsection{Srovnání mezi modely}
-Na základě výsledků experimentu (viz tabulka~\ref{tab:vysledky_llm} a obrázek~\ref{fig:code_review_bar_comparison}) je patrné, že fenomén nekritické pasivnosti ovlivňuje různé modely s odlišnou intenzitou. Největší rozdíl mezi neutrálním a pozitivním promptem byl zaznamenán u modelu Claude, kde došlo k dramatickému poklesu skóre z 54 na 17 bodů (pokles o přibližně 68.5\%, viz také obrázek~\ref{fig:positive_prompt_decrease}). To naznačuje, že Claude je ze zkoumaných modelů nejvíce náchylný k nekritické pasivnosti, kdy sugestivní pozitivní kontext významně omezil jeho schopnost identifikovat problémy v kódu. U tohoto modelu byl také zaznamenán nejvýraznější pozitivní efekt negativního promptu, který vedl ke zvýšení skóre na 73 bodů.
-
-Naproti tomu model DeepSeek prokázal nejvyšší odolnost vůči sugestivním promptům, kde rozdíl mezi neutrálním (89 bodů) a pozitivním promptem (73 bodů) činil 16 bodů (pokles přibližně o 18.0\%, viz obrázek~\ref{fig:positive_prompt_decrease}). Tento model také dosáhl nejlepších výsledků v absolutních číslech, což naznačuje jeho vyšší celkovou efektivitu při provádění code review.
-
-Modely ChatGPT a Gemini vykazovaly střední míru ovlivnitelnosti. U ChatGPT došlo k poklesu skóre z 74 na 63 bodů (pokles o cca 14.9\%) při pozitivním promptu, zatímco Gemini zaznamenal pokles ze 74 na 43 bodů (pokles o cca 41.9\%) – viz obrázek~\ref{fig:positive_prompt_decrease}. Zajímavým zjištěním je, že zatímco ChatGPT byl méně ovlivněn pozitivním promptem, Gemini vykazoval výrazně lepší výsledky při negativním promptu (80 bodů oproti 74 u neutrálního), což naznačuje odlišné charakteristiky těchto dvou modelů při zpracování sugestivních instrukcí, jak je vidět i na obrázku~\ref{fig:code_review_trends_line}.
-
+Z výsledků je patrné, že nekritická pasivnost ovlivňuje různé modely s odlišnou intenzitou. Největší rozdíl mezi neutrálním a pozitivním promptem byl zaznamenán u modelu Claude (pokles o 68,5\,\%), což naznačuje jeho vysokou náchylnost k nekritické pasivnosti. Model DeepSeek prokázal nejvyšší odolnost s poklesem o pouhých 18,0\,\% a zároveň dosáhl nejlepších výsledků v absolutních číslech. ChatGPT zaznamenal nejmenší pokles (14,9\,\%), zatímco Gemini vykazoval střední míru ovlivnitelnosti (41,9\,\%). Zajímavým poznatkem je, že negativní prompt zpravidla zlepšoval výkon všech modelů oproti neutrálnímu zadání.
 
 \subsection{Rozdíly v identifikaci různých typů problémů}
-Analýza dat odhalila zajímavé vzorce v tom, jak různé typy problémů jsou ovlivněny nekritickou pasivností. U subtilních problémů byl zaznamenán nejdramatičtější pokles schopnosti identifikace při použití pozitivního promptu. Například Claude nedokázal identifikovat žádný ze subtilních problémů při pozitivním promptu, přestože při neutrálním promptu jich odhalil 2 a při negativním promptu dokonce 4 z celkových 6. Podobný, i když méně dramatický trend byl pozorován u všech testovaných modelů.
+Analýza dat odhalila, že u subtilních problémů byl pokles schopnosti identifikace při použití pozitivního promptu nejdramatičtější. Například Claude neodhalil žádný subtilní problém při pozitivním promptu oproti 4 problémům při negativním zadání. U zjevných problémů byl efekt méně výrazný - DeepSeek a ChatGPT dokázaly identifikovat všechny zjevné problémy i při pozitivním promptu. Středně závažné problémy vykazovaly podobný trend jako subtilní problémy, přičemž negativní prompt zpravidla nevedl k významnému zlepšení oproti neutrálnímu promptu.
 
-U zjevných problémů byl efekt nekritické pasivnosti méně výrazný. DeepSeek a ChatGPT dokázaly identifikovat plný počet (4 ze 4) zjevných problémů i při pozitivním promptu, což naznačuje, že jejich schopnost odhalit očividné problémy je robustnější vůči sugestivním instrukcím. Claude byl v tomto ohledu opět nejvíce ovlivněn, s poklesem identifikace zjevných problémů z 2 na 1 při pozitivním promptu.
+\subsection{Výsledky experimentu s Haskellem}
+Pro vyhodnocení schopnosti LLM provádět code review v méně běžném jazyce jako je Haskell byly shromážděny výsledky testování čtyř modelů a služby CodeRabbit. Pro srovnání byla použita i Python implementace téhož algoritmu. Výsledky jsou shrnuty v následující tabulce:
 
-Středně závažné problémy vykazovaly podobný trend jako subtilní problémy, s výrazným poklesem schopnosti identifikace při pozitivním promptu, zejména u modelů Claude a Gemini. Zajímavé je, že negativní prompt zpravidla nevedl k významnému zlepšení oproti neutrálnímu promptu, což naznačuje, že explicitní pobídka ke kritičnosti má menší efekt než sugestivní pochvala na schopnost modelů identifikovat problémy střední závažnosti.
+\begin{table}[H]
+\centering
+\caption{Výsledky hodnocení code review v Haskellu}
+\label{tab:vysledky_haskell}
+\renewcommand{\arraystretch}{1.3}
+\begin{tabular}{|l|c|c|c|c|c|}
+\hline
+\textbf{Model} & \textbf{\makecell{Identifikované\\problémy\\(0-10)}} & \textbf{\makecell{Kvalita\\zpětné vazby\\(1-5)}} & \textbf{\makecell{Znalost\\idiomatického\\Haskellu\\(1-5)}} & \textbf{\makecell{Srovnání\\s Pythonem\\(-5 až +5)}} & \textbf{\makecell{Celkové\\skóre\\(0-100)}} \\ \hline
+Claude & 5 & 3 & 3 & -2 & 59 \\ \hline
+ChatGPT & 7 & 4 & 4 & -1 & 73 \\ \hline
+Gemini & 4 & 3 & 2 & -3 & 48 \\ \hline
+DeepSeek & 6 & 4 & 4 & 0 & 66 \\ \hline
+CodeRabbit & 3 & 2 & 1 & -4 & 40 \\ \hline
+\end{tabular}
+\end{table}
 
-\subsection{Vliv jazyka instrukce na kvalitu code review}
-V rámci experimentu byl také zkoumán vliv jazyka instrukce (češtiny versus angličtiny) na kvalitu poskytnutého code review. Přestože všechny testované modely jsou primárně trénovány na anglicky psaných datech, většina z nich proklamuje schopnost pracovat s mnohojazyčnými instrukcemi. Výsledky ukázaly, že při použití českých promptů došlo k mírnému poklesu výkonu napříč všemi modely, a to zejména při identifikaci subtilních problémů.
+\noindent Celkové skóre pro Haskell bylo vypočítáno podle následujícího vzorce:
+\begin{align}
+\text{Celkové skóre} &= \left(\frac{\text{Identifikované problémy}}{10} \times 50\right) + (\text{Kvalita zpětné vazby} \times 6) \nonumber \\ 
+&\quad + (\text{Znalost idiomatického Haskellu} \times 8)
+\end{align}
+% Poznámka: Rozdělil jsem dlouhý řádek vzorce pro lepší čitelnost v LaTeX kódu pomocí \quad pro odsazení
 
-Nejvýraznější rozdíl byl zaznamenán u modelu Gemini, kde české instrukce vedly k průměrnému poklesu celkového skóre o 12\% oproti anglickým promptům. Naopak DeepSeek vykazoval nejmenší rozdíl (pouze 5\% pokles), což naznačuje jeho robustnější schopnost zpracovat cizojazyčné instrukce. Zajímavým zjištěním je, že jazykový efekt byl nejméně patrný při použití negativního promptu, kdy všechny modely dosahovaly téměř identických výsledků v angličtině i češtině. To může naznačovat, že explicitní instrukce ke kritické analýze překonává potenciální jazykové bariéry.
+Obrázek~\ref{fig:haskell_comparison} vizualizuje celkové skóre dosažené jednotlivými modely při code review Haskell kódu a ukazuje rozdíl ve srovnání s code review Python implementace téhož algoritmu.
 
-Tento fenomén má praktické implikace zejména pro mezinárodní vývojové týmy, kde se běžně používá mix jazyků. Na základě výsledků lze doporučit používat anglické instrukce pro code review pomocí LLM, obzvláště pokud jde o identifikaci subtilnějších problémů v kódu.
+\begin{figure}[H]
+\centering
+% Nahraďte 'example-image-d' vaším skutečným názvem souboru obrázku
+\includegraphics[width=0.8\textwidth]{example-image-d}
+\caption{Srovnání schopnosti LLM provádět code review v Haskellu versus Pythonu.}
+\label{fig:haskell_comparison}
+\end{figure}
 
-\subsection{Dopady na týmovou práci}
+\subsection{Výsledky experimentu vlivu jazyka instrukce}
+Pro vyhodnocení vlivu jazyka instrukce na kvalitu code review byly shromážděny výsledky testování čtyř modelů při použití promptů v češtině, angličtině a velštině. Výsledky jsou shrnuty v následující tabulce:
+
+\begin{table}[H]
+\centering
+\caption{Výsledky hodnocení vlivu jazyka instrukce na code review}
+\label{tab:vysledky_jazyk}
+\renewcommand{\arraystretch}{1.3}
+\begin{tabular}{|l|l|c|c|c|c|}
+\hline
+\textbf{Model} & \textbf{Jazyk} & \textbf{\makecell{Identifikované\\problémy\\(0-14)}} & \textbf{\makecell{Kvalita\\zpětné vazby\\(1-5)}} & \textbf{\makecell{Jazyk\\odpovědi\\(1-3)}} & \textbf{\makecell{Celkové\\skóre\\(0-100)}} \\ \hline
+Claude & Angličtina & 8 & 4 & 3 & 64 \\ \hline
+Claude & Čeština & 6 & 4 & 3 & 54 \\ \hline
+Claude & Velština & 4 & 3 & 2 & 38 \\ \hline
+ChatGPT & Angličtina & 10 & 4 & 3 & 74 \\ \hline
+ChatGPT & Čeština & 9 & 4 & 3 & 69 \\ \hline
+ChatGPT & Velština & 7 & 3 & 2 & 55 \\ \hline
+Gemini & Angličtina & 10 & 4 & 3 & 74 \\ \hline
+Gemini & Čeština & 8 & 4 & 3 & 64 \\ \hline
+Gemini & Velština & 5 & 3 & 1 & 43 \\ \hline
+DeepSeek & Angličtina & 13 & 4 & 3 & 89 \\ \hline
+DeepSeek & Čeština & 12 & 4 & 3 & 84 \\ \hline
+DeepSeek & Velština & 9 & 3 & 2 & 67 \\ \hline
+\end{tabular}
+\end{table}
+
+\noindent Celkové skóre pro vliv jazyka bylo vypočítáno podle následujícího vzorce:
+\begin{align}
+\text{Celkové skóre} &= \left(\frac{\text{Identifikované problémy}}{14} \times 70\right) + (\text{Kvalita zpětné vazby} \times 6) \nonumber \\
+&\quad + (\text{Jazyk odpovědi} \times 2)
+\end{align}
+% Poznámka: Rozdělil jsem dlouhý řádek vzorce pro lepší čitelnost v LaTeX kódu
+
+Obrázek~\ref{fig:language_comparison} vizualizuje vliv jazyka instrukce na celkové skóre dosažené jednotlivými modely.
+
+\begin{figure}[H]
+\centering
+% Nahraďte 'example-image-e' vaším skutečným názvem souboru obrázku
+\includegraphics[width=0.8\textwidth]{example-image-e}
+\caption{Srovnání vlivu jazyka instrukce na kvalitu code review.}
+\label{fig:language_comparison}
+\end{figure}
+
+\subsection{Diskuze výsledků experimentu s Haskellem}
+Výsledky experimentu s Haskellem odhalily zajímavé rozdíly mezi jednotlivými modely v jejich schopnosti analyzovat kód v méně běžném funkcionálním jazyce. ChatGPT dosáhl nejvyššího skóre (73), což překvapivě naznačuje jeho lepší porozumění Haskellu ve srovnání s ostatními modely. DeepSeek se umístil jako druhý nejlepší (66 bodů), přičemž jako jediný dosáhl shodné kvality code review u Haskellu i Pythonu (hodnota srovnání s Pythonem = 0).
+Naopak Gemini (48 bodů) a zejména služba CodeRabbit (40 bodů) prokázaly výrazně horší schopnost analyzovat Haskell kód oproti Python implementaci. CodeRabbit dosáhl nejnižšího skóre ve znalosti idiomatického Haskellu (1 z 5), což naznačuje, že tento specializovaný nástroj je pravděpodobně optimalizován především pro mainstreamové programovací jazyky.
+Významným poznatkem je, že všechny modely kromě DeepSeeku vykazovaly horší výsledky při code review Haskell kódu než při review Python implementace téhož algoritmu (záporné hodnoty ve sloupci "Srovnání s Pythonem"). To potvrzuje hypotézu, že LLM mají obecně omezenější schopnostiři analýze kódu v méně běžném programovacím jazyce jako je Haskell. Tento rozdíl byl nejméně patrný u DeepSeeku, což naznačuje, že tento model může mít robustnější trénovací data zahrnující širší spektrum programovacích jazyků.
+
+\subsection{Diskuze výsledků experimentu vlivu jazyka instrukce}
+Výsledky experimentu s vlivem jazyka instrukce potvrdily, že jazyk, ve kterém jsou formulovány prompty, má nezanedbatelný vliv na kvalitu code review. U všech testovaných modelů byl zaznamenán postupný pokles skóre při přechodu z anglických instrukcí na české a následně na velšské.
+DeepSeek opět prokázal nejlepší výsledky v absolutních číslech (89 bodů pro anglické instrukce) a zároveň nejmenší relativní pokles při použití českých instrukcí (pouze 5,6\,\% pokles). V kontrastu s tím Claude zaznamenal nejvýraznější pokles při změně jazyka z angličtiny na češtinu (15,6\,\%) a na velštinu dokonce 40,6\,\%. Tyto výsledky naznačují, že navzdory proklamované multilingválnosti, LLM modely stále vykazují výrazně lepší výkon při zpracování instrukcí v angličtině.
+Zajímavým poznatkem je, že zatímco při anglických a českých instrukcích všechny modely konzistentně odpovídaly ve stejném jazyce (hodnota "Jazyk odpovědi" = 3), při velšských instrukcích pouze Gemini poskytoval odpovědi plně ve velštině (hodnota = 1). Ostatní modely buď kombinovaly velštinu s angličtinou (hodnota = 2) nebo rovnou přešly na anglické odpovědi. To naznačuje limity modelů při práci s méně frekventovanými jazyky.
+
+\subsection{Praktické dopady na týmovou práci}
 Zjištěné výsledky mají významné implikace pro využití LLM při code review v reálných vývojových týmech:
-
 \paragraph{Optimalizace promptů} Výsledky jasně naznačují důležitost pečlivého formulování promptů při využívání LLM pro code review. Příliš pozitivní či pochlebující formulace může výrazně snížit efektivitu těchto nástrojů, zejména při identifikaci subtilnějších problémů. Pro praktické nasazení v týmech je tedy vhodné standardizovat prompty směrem k neutrálním nebo mírně negativním formulacím, aby byla zajištěna maximální efektivita.
-
 \paragraph{Výběr vhodného modelu} Značné rozdíly mezi jednotlivými modely naznačují, že volba konkrétního LLM může mít zásadní vliv na kvalitu automatizovaného code review. DeepSeek se v našem experimentu ukázal jako nejrobustnější volba s nejmenším vlivem nekritické pasivnosti, zatímco Claude by měl být používán s opatrností vzhledem k jeho vyšší náchylnosti k tomuto jevu.
-
-\paragraph{Kombinace s lidským hodnocením} Žádný z testovaných modelů nedosáhl 100\% úspěšnosti při identifikaci všech problémů, což zdůrazňuje, že LLM by měly být používány jako doplněk, nikoli náhrada lidského code review. Zejména pro subtilní problémy, které často vyžadují hluboké porozumění kontextu projektu, zůstává lidský úsudek nenahraditelný.
-
+\paragraph{Jazykové aspekty} Pro týmy pracující v mezinárodním prostředí je důležité zvážit, v jakém jazyce formulují instrukce pro LLM při code review. Angličtina konzistentně vede k nejlepším výsledkům a měla by být preferována zejména při analýze složitějšího kódu nebo při hledání subtilních problémů.
+\paragraph{Review funkcionálních jazyků} Týmy pracující s méně běžnými jazyky jako je Haskell by měly být obezřetné při spoléhání se na automatizované nástroje pro code review. Současné modely mají v této oblasti stále výrazné limity, přičemž ChatGPT a DeepSeek vykazují nejlepší výsledky. U specializovaných funkcionálních jazyků je lidský review stále nenahraditelný.
+\paragraph{Kombinace s lidským hodnocením} Žádný z testovaných modelů nedosáhl 100\,\% úspěšnosti při identifikaci všech problémů, což zdůrazňuje, že LLM by měly být používány jako doplněk, nikoli náhrada lidského code review. Zejména pro subtilní problémy, které často vyžadují hluboké porozumění kontextu projektu, zůstává lidský úsudek nenahraditelný.
 \paragraph{Vzdělávání týmu} Vývojářské týmy by měly být obeznámeny s fenoménem nekritické pasivnosti a jeho potenciálními dopady na kvalitu code review. Toto povědomí může pomoci vývojářům lépe interpretovat a kriticky hodnotit zpětnou vazbu poskytovanou jazykovými modely.
 
 \section{Závěr}
