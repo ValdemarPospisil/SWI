@@ -1,0 +1,23 @@
+{
+  "id_nesaf": 3,
+  "tasgau": [
+    {
+      "id": 1,
+      "teitl": "Cwblhau papur seminar",
+      "disgrifiad": "Penodau cyflwr y gelfyddyd a dylunio arbrawf",
+      "blaenoriaeth": 5,
+      "dyddiad_dyledus": "2025-05-30T00:00:00",
+      "cwblhawyd": false,
+      "cr\u00ebwyd_ar": "2025-05-15T14:32:58.615706"
+    },
+    {
+      "id": 2,
+      "teitl": "Prynu bwydydd",
+      "disgrifiad": "Bara, llaeth, wyau",
+      "blaenoriaeth": 3,
+      "dyddiad_dyledus": null,
+      "cwblhawyd": false,
+      "cr\u00ebwyd_ar": "2025-05-15T14:32:58.615721"
+    }
+  ]
+}

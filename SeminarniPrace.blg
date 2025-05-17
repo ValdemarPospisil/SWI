@@ -17,45 +17,45 @@ You're missing a field name---line 45 of file bibliography.bib
  :   date = {2024-03-14}, 
  :                        % Poznámka: Datum je odhadnuto, prosím ověřit
 I'm skipping whatever remains of this entry
-You've used 10 entries,
+You've used 11 entries,
             2773 wiz_defined-function locations,
-            640 strings with 6019 characters,
-and the built_in function-call counts, 3057 in all, are:
-= -- 271
-> -- 100
-< -- 10
-+ -- 40
-- -- 30
-* -- 158
-:= -- 483
-add.period$ -- 34
-call.type$ -- 10
-change.case$ -- 40
+            643 strings with 6152 characters,
+and the built_in function-call counts, 3358 in all, are:
+= -- 297
+> -- 110
+< -- 11
++ -- 45
+- -- 33
+* -- 177
+:= -- 528
+add.period$ -- 37
+call.type$ -- 11
+change.case$ -- 44
 chr.to.int$ -- 10
-cite$ -- 20
-duplicate$ -- 162
-empty$ -- 315
-format.name$ -- 40
-if$ -- 646
-int.to.chr$ -- 1
+cite$ -- 22
+duplicate$ -- 177
+empty$ -- 347
+format.name$ -- 44
+if$ -- 710
+int.to.chr$ -- 2
 int.to.str$ -- 1
 missing$ -- 3
-newline$ -- 62
-num.names$ -- 40
-pop$ -- 108
+newline$ -- 67
+num.names$ -- 44
+pop$ -- 120
 preamble$ -- 1
-purify$ -- 30
+purify$ -- 33
 quote$ -- 0
-skip$ -- 137
+skip$ -- 148
 stack$ -- 0
-substring$ -- 20
-swap$ -- 10
+substring$ -- 22
+swap$ -- 13
 text.length$ -- 0
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 110
+type$ -- 121
 warning$ -- 0
-while$ -- 30
+while$ -- 33
 width$ -- 0
-write$ -- 135
+write$ -- 147
 (There were 3 error messages)
